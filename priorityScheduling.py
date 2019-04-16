@@ -14,7 +14,6 @@ def findavgTime(processes, n):
 	tat = [0] * n 
 
 	waitingTime(processes, n, wt) 
-
 	turnAroundTime(processes, n, wt, tat) 
 
 	print("\nProcesses Burst Time Waiting", 
@@ -48,4 +47,4 @@ if __name__ =="__main__":
 			[2, 5, 0], 
 			[3, 8, 1]] 
 	n = 3
-	priorityScheduling(proc, n) 
+	priorityScheduling(proc, n)	
