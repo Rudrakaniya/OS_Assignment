@@ -1,10 +1,10 @@
-def findWaitingTime(processes, n, wt): 
+def waitingTime(processes, n, wt): 
 	wt[0] = 0
 
 	for i in range(1, n): 
 		wt[i] = processes[i - 1][1] + wt[i - 1] 
 
-def findTurnAroundTime(processes, n, wt, tat): 
+def turnAroundTime(processes, n, wt, tat): 
 	
 	for i in range(n): 
 		tat[i] = processes[i][1] + wt[i] 
@@ -13,9 +13,9 @@ def findavgTime(processes, n):
 	wt = [0] * n 
 	tat = [0] * n 
 
-	findWaitingTime(processes, n, wt) 
+	waitingTime(processes, n, wt) 
 
-	findTurnAroundTime(processes, n, wt, tat) 
+	turnAroundTime(processes, n, wt, tat) 
 
 	print("\nProcesses Burst Time Waiting", 
 		"Time Turn-Around Time") 
