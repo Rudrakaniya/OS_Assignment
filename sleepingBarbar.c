@@ -14,8 +14,7 @@ int count=0;
 void barber(void *arg);
 void customer(void *arg);
 
-int main(int argc,char *argv[])
-{
+int main(int argc,char *argv[]) {
 	pthread_t id1,id2;
 	int status=0;
 	end_time=time(NULL)+20;
@@ -30,38 +29,32 @@ int main(int argc,char *argv[])
 	pthread_join(id2,NULL);
 	pthread_join(id1,NULL);
 
-	return(0);
+	exit(0);
 }
 
-void barber(void *arg)
-{
-	while(time(NULL)<end_time || count>0)
-	{
+void barber(void *arg) {
+	while(time(NULL)<end_time || count>0) {
 		sem_wait(&customers);            
 		sem_wait(&mutex);
 		count--;
-		printf("Barber:cut hair,count is:%d.\n",count);
+		printf("Barber is cutting hair, Customer count is: %d\n",count);
 		sem_post(&mutex);
 		sem_post(&barbers);
 		sleep(3);       
 	}
 }
 
-void customer(void *arg)
-{
-	while(time(NULL)<end_time)
-	{
+void customer(void *arg) {
+	while(time(NULL)<end_time) {
 		sem_wait(&mutex);
-		if(count<N)
-		{
+		if(count<N)	{
 			count++;
-			printf("Customer:add count,count is:%d\n",count);
+			printf("More customer. Customer count is: %d\n",count);
 			sem_post(&mutex);
 			sem_post(&customers);
 			sem_wait(&barbers);
 		}
 		else
-			
 			sem_post(&mutex);
 		sleep(1);
 	}
