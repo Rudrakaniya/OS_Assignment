@@ -2,7 +2,6 @@
 #include<stdlib.h>
 #include<unistd.h>
 #include<pthread.h>
-#include<errno.h>
 #include<sys/ipc.h>
 #include<semaphore.h>
 
@@ -21,25 +20,17 @@ int main(int argc,char *argv[])
 	int status=0;
 	end_time=time(NULL)+20;
 
-
 	sem_init(&mutex,0,1);
 	sem_init(&customers,0,1);
 	sem_init(&barbers,0,1);
-
 	
-	status=pthread_create(&id1,NULL,(void *)barber,NULL);
-	if(status!=0)
-		perror("create barbers is failure!\n");
-	
-	status=pthread_create(&id2,NULL,(void *)customer,NULL);
-	if(status!=0)
-		perror("create customers is failure!\n");
-
+	pthread_create(&id2,NULL,(void *)customer,NULL);
+	pthread_create(&id1,NULL,(void *)barber,NULL);	
 	
 	pthread_join(id2,NULL);
 	pthread_join(id1,NULL);
 
-	exit(0);
+	return(0);
 }
 
 void barber(void *arg)
